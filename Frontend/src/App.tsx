@@ -1,9 +1,14 @@
+import { BrowserRouter } from "react-router-dom"
+
 import "./index.css"
+import AppRouter from "./Routing/AppRouter"
 
 const App = () => {
   return (
     <div>
-      <h1 className=''><h1>hello</h1></h1>
+  <BrowserRouter>
+<AppRouter/>
+  </BrowserRouter>
     </div>
   )
 }
