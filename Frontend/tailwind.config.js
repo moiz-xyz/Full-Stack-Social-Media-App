@@ -1,8 +1,9 @@
+// tailwind.config.js (for ESM projects)
+import defaultTheme from 'tailwindcss/defaultTheme.js'
+import animate from 'tailwindcss-animate'
 
 /** @type {import('tailwindcss').Config} */
-const defaultTheme = require('tailwindcss/defaultTheme')
-
-module.exports = {
+export default {
   darkMode: ['class'],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -16,7 +17,6 @@ module.exports = {
       padding: '2rem',
       screens: {
         '2xl': '1400px',
-      
       },
     },
     extend: {
@@ -37,7 +37,6 @@ module.exports = {
       },
       screens: {
         'xs': '480px',
-      
       },
       width: {
         '420': '420px',
@@ -45,7 +44,6 @@ module.exports = {
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],
-
       },
       keyframes: {
         'accordion-down': {
@@ -63,5 +61,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
-};
+  plugins: [animate],
+}
