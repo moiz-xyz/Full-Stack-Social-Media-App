@@ -1,23 +1,26 @@
-import { Outlet , Navigate } from "react-router-dom"
-const Authlayout = () => {
+import { Outlet, Navigate } from "react-router-dom";
 
- const isAuthenticte = false ;
+const Authlayout = () => {
+  const isAuthenticte = false;
 
   return (
     <>
-      {isAuthenticte ? ( <Navigate to="/"/>) : 
-      (
-        <>
-        <section className="flex flex1 justify-center items-center flex-col py-10">
-            <Outlet/>   
-        </section>
-
-        <img src="/public/image.png" alt="images" className=" block sm:hidden screen w-1/2 object-cover bg-no-repeat" />
-        </>
-      )
-      }
+    {isAuthenticte ? (
+      <Navigate to="/" />
+    ) : (
+      <>
+      <section className="flex-10 flex flex-row justify-center items-center  py-10">
+            <Outlet />
+          {/* <img
+            src="/image.png"
+            alt="images"
+            className="hidden md:block h-screen w-1/2 object-cover bg-no-repeat"
+            /> */}
+            </section>
+          </>
+      )}
     </>
-  )
-}
+  );
+};
 
-export default Authlayout
+export default Authlayout;
