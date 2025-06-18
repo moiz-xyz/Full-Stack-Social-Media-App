@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,9 +7,17 @@
   * {
     @apply box-border list-none p-0 m-0 scroll-smooth;
   }
+ 
 
   body {
     @apply bg-dark-1 text-white min-h-screen font-inter;
+  }
+   h1, h2, h3, h4, h5, h6, p {
+    @apply m-0 p-0;
+  }
+
+  img {
+    @apply align-middle;
   }
 }
 
@@ -147,15 +154,20 @@
   }
 
   .shad-input {
-    @apply h-8 bg-dark-4 border-none placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 !important;
-  }
+  @apply h-8 bg-dark-4 border-none placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 m-0 p-2 !important;
+}
+.spacing-reset * {
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 0 !important;
+}
 
   .shad-textarea {
     @apply h-36 bg-dark-3 rounded-xl border-none focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 !important;
   }
 
   .shad-button_primary {
-    @apply bg-primary-500 hover:bg-primary-500 text-light-1 flex gap-2 !important;
+    @apply bg-primary-500 hover:bg-primary-500 text-light-1 flex gap-2   mt-4 !important;
   }
 
   .shad-button_dark_4 {
