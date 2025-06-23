@@ -2,7 +2,7 @@ import transporter from "../../Helpers/emailconfig.js";
 import User from "../../modal/userAuth.js";
 import { signupSchema } from "../../validators/Signupvalidorts.js";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken"; 
+import jwt from "jsonwebtoken";
 import "dotenv/config";
 
 export const CreateUser = async (req, res) => {
@@ -10,7 +10,6 @@ export const CreateUser = async (req, res) => {
 
   try {
     const userexists = await User.findOne({ email });
-
     if (userexists) {
       return res.status(409).send({
         status: 409,
@@ -28,28 +27,29 @@ export const CreateUser = async (req, res) => {
       password: password_in_Hash,
     });
 
+    
+    if (!process.env.SECRET_KEY) {
+   console.error("❌ SECRET_KEY is missing from env!");
+ }
     const token = jwt.sign(
       {
         _id: createUser._id,
-        _email: createUser.email,
+        email: createUser.email,
       },
       process.env.SECRET_KEY,
       { expiresIn: "1h" }
     );
-
     transporter.sendMail({
       to: createUser.email,
       from: process.env.EMAIL_USER,
-      subject: "🎉 Welcome  You're In!",
+      subject: "🎉 Welcome! You're In!",
       text: `Hi ${createUser.username},
 
 Welcome!
 
 We're thrilled to have you on board. Your account has been successfully created and you're now part of a growing community that values quality, trust, and innovation.
 
-Stay tuned for exciting updates, new features, and exclusive content coming your way!
-
-If you ever need help, just hit reply — we're here for you.
+If you ever need help, just reply — we're here for you!
 
 Best regards,`,
     });
@@ -59,10 +59,11 @@ Best regards,`,
       message: "User created successfully",
       token: token,
     });
+
   } catch (error) {
     return res.status(500).send({
       status: 500,
-      message: error.message,
+      message: error.message || "Internal server error",
     });
   }
 };

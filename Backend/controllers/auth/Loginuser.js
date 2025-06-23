@@ -1,57 +1,42 @@
-import User from '../../modal/userAuth.js';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-import 'dotenv/config';
+import User from "../../modal/userAuth.js"
+import bcrypt from 'bcryptjs'
+import jwt  from "jsonwebtoken"
 
 export const loginuser = async (req, res) => {
-  const { email, password } = req.body;
 
+  const { email , password} = req.body
   try {
-    // 1. Check if user exists
-    const user = await User.findOne({ email });
+  // checking if t user written the email and password
+if (!(email && password) ) {
+  return res.status(409).send({ status: 409, message: "Email or Password Required" })
+}
 
-    if (!user) {
-      return res.status(404).send({
-        status: 404,
-        message: "User not found. Please register first.",
-      });
+// check if the user exists
+const existeduser = await User.findOne( {email})
+if (!existeduser) {
+  return res.status(404).send({ status: 404, message: "User not found!" });
+}
+
+if (!existeduser){
+    return res.status(402).send({ status: 402, message: "User Not found!"})
+}
+
+// converted pass into normal again and compare with password in db 
+
+
+const compare_Password= await bcrypt.compare(password , existeduser.password)
+   if (!compare_Password) {
+       return res.status(401).send({ status: 401 , message: "Incorrect Password!", })
+        }
+        
+   const token = jwt.sign({ _id: existeduser._id, email: existeduser.email }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" })
+       delete existeduser.password
+        return res.status(200).send({ status: 200, message: "User logged in  Successfully!", data: existeduser, token: token })
+    } 
+    catch (error) {
+        return res.status(500).send({ status: 500, message: error.message })
+
     }
 
-    // 2. Compare entered password with stored hashed password
-    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+}
 
-    if (!isPasswordCorrect) {
-      return res.status(401).send({
-        status: 401,
-        message: "Invalid email or password",
-      });
-    }
-
-    // 3. Generate JWT Token
-    const token = jwt.sign(
-      {
-        _id: user._id,
-        email: user.email,
-      },
-      process.env.SECRET_KEY,
-      { expiresIn: "1h" }
-    );
-
-    // 4. Send response
-    return res.status(200).send({
-      status: 200,
-      message: "User logged in successfully",
-      token,
-      data: {
-        username: user.username,
-        email: user.email,
-        id: user._id,
-      },
-    });
-  } catch (error) {
-    return res.status(500).send({
-      status: 500,
-      message: error.message || "Internal server error",
-    });
-  }
-};
