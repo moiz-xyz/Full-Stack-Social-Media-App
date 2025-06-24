@@ -29,7 +29,7 @@ const compare_Password= await bcrypt.compare(password , existeduser.password)
        return res.status(401).send({ status: 401 , message: "Incorrect Password!", })
         }
         
-   const token = jwt.sign({ _id: existeduser._id, email: existeduser.email }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" })
+   const token = jwt.sign({ _id: existeduser._id, email: existeduser.email }, process.env.SECRET_KEY, { expiresIn: "1h" })
        delete existeduser.password
         return res.status(200).send({ status: 200, message: "User logged in  Successfully!", data: existeduser, token: token })
     } 
@@ -37,6 +37,5 @@ const compare_Password= await bcrypt.compare(password , existeduser.password)
         return res.status(500).send({ status: 500, message: error.message })
 
     }
-
 }
 

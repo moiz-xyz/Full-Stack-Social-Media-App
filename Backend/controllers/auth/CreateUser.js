@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 
 export const CreateUser = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { name , username, email, password } = req.body;
 
   try {
     const userexists = await User.findOne({ email });
@@ -22,15 +22,13 @@ export const CreateUser = async (req, res) => {
     const password_in_Hash = await bcrypt.hash(password, 10);
 
     const createUser = await User.create({
+      name,
       username,
       email,
       password: password_in_Hash,
     });
 
-    
-    if (!process.env.SECRET_KEY) {
-   console.error("❌ SECRET_KEY is missing from env!");
- }
+
     const token = jwt.sign(
       {
         _id: createUser._id,
