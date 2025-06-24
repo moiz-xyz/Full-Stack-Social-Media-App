@@ -40,6 +40,13 @@ const Signup = () => {
     try {
       const response = await signupUser(values)
       console.log("Signup Success:", response)
+      // console.log(response.token);
+     const token = response.token;
+
+if (token) {
+  localStorage.setItem("authToken", token);
+}
+      
       } catch (error: any) {
       setErrorMessage(error.message)
       console.error("Signup Error:", error)

@@ -4,14 +4,12 @@ import jwt  from "jsonwebtoken"
 
 export const loginuser = async (req, res) => {
 
-  const { email , password} = req.body
+  const { email , password } = req.body
   try {
-  // checking if t user written the email and password
 if (!(email && password) ) {
   return res.status(409).send({ status: 409, message: "Email or Password Required" })
 }
 
-// check if the user exists
 const existeduser = await User.findOne( {email})
 if (!existeduser) {
   return res.status(404).send({ status: 404, message: "User not found!" });
@@ -20,9 +18,6 @@ if (!existeduser) {
 if (!existeduser){
     return res.status(402).send({ status: 402, message: "User Not found!"})
 }
-
-// converted pass into normal again and compare with password in db 
-
 
 const compare_Password= await bcrypt.compare(password , existeduser.password)
    if (!compare_Password) {
