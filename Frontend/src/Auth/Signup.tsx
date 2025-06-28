@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { signUpValidation } from "@/lib/validation"
-import Loader from "@/components/loader/Loader"
+import Loader from "@/components/shared/Loader"
 import { Link } from "react-router-dom"
 import { signupUser } from "@/api/signupApi"
 
