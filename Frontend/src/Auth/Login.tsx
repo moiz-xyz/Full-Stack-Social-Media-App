@@ -93,9 +93,9 @@ if (token) {
           />
 
           {/* Submit Button */}
-          <Button type="submit" className="shad-button_primary w-full ml-20 mt-10">
-            {isLoading ? <Loader /> : "Sign-up"}
-          </Button>
+            <Button type="submit" className="shad-button_primary w-full ml-20 mt-10">
+              {isLoading ? <Loader /> : "Sign-up"}
+            </Button>
             <p className="text-xs text-red-500 text-center mt-1">{errorMessage}</p>
           {/* Link to Login */}
           <p className="text-xs text-light-2 text-center mt-1">
