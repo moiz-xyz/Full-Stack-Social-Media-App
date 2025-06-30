@@ -13,15 +13,34 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
 
 // Sidebar menu items
 const items = [
-  { title: "Home", url: "#", icon: Home },
-  { title: "Inbox", url: "#", icon: Inbox },
-  { title: "Calendar", url: "#", icon: Calendar },
-  { title: "Search", url: "#", icon: Search },
-  { title: "Settings", url: "#", icon: Settings },
+  {
+    imgURL: "../../../public/home.svg",
+    route: "/",
+    label: "Home",
+  },
+  {
+    imgURL: "../../../public/wallpaper.svg",
+    route: "/explore",
+    label: "Explore",
+  },
+  {
+    imgURL: "../../../public/people.svg",
+    route: "/all-users",
+    label: "People",
+  },
+  {
+    imgURL: "../../../public/bookmark.svg",
+    route: "/saved",
+    label: "Saved",
+  },
+  {
+    imgURL: "../../../public/gallery-add.svg",
+    route: "/create-post",
+    label: "Create Post",
+  },
 ];
 
 // Single, self‑contained sidebar component
@@ -38,15 +57,15 @@ export default function SideBar() {
             <SidebarGroupContent>
               <SidebarMenu>
                 {items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
+                  <SidebarMenuItem key={item.label}>
                     <SidebarMenuButton asChild>
                        <Button
                         variant="ghost"
-                       className="shad-button_primary w-40 ml-3  mt-20"
-                        onClick={() => (window.location.href = item.url)}
+                       className=""
+                        onClick={() => (window.location.href = item.imgURL)}
                       >
-                        <item.icon size={18} />
-                        <span>{item.title}</span>
+                        <img src={item.imgURL} alt={item.label} className="w-5 h-5" />
+                        <span>{item.label}</span>
                       </Button>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
